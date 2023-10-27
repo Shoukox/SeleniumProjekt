@@ -20,6 +20,7 @@ namespace TestAufgabe1.Tests.Amazon
         public void OneTimeSetUp()
         {
             _amazonPageObject.MaximizeWindow();
+            //_amazonPageObject.SetWindowSizeRandomly();
         }
 
         [Order(0)]
@@ -35,15 +36,15 @@ namespace TestAufgabe1.Tests.Amazon
         }
 
         [Order(1)]
-        [Test]
-        public void CheckCart_3Items_Success()
+        [TestCase(3)]
+        public void CheckCart_NItems_Success(int minCount)
         {
             //Act
             _amazonPageObject.OpenCart();
             IEnumerable<IWebElement> cartItems = _amazonPageObject.GetCartItems();
 
             //Assert
-            Assert.That(cartItems.Count(), Is.EqualTo(3));
+            Assert.That(cartItems.Count(), Is.EqualTo(minCount));
         }
 
         [OneTimeTearDown]

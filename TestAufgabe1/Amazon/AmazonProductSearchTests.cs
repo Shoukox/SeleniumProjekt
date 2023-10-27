@@ -19,6 +19,7 @@ namespace TestAufgabe1.Tests.Amazon
         public void OneTimeSetUp()
         {
             _amazonPageObject.MaximizeWindow();
+            //_amazonPageObject.SetWindowSizeRandomly();
         }
 
         [Order(0)]

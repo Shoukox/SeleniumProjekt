@@ -26,18 +26,12 @@ namespace TestAufgabe2.Tests.Avsar_te.Career.PageObjects
         public void MaximizeWindow() => _webDriver.Manage().Window.Maximize();
         public void QuitAndCloseBrowser() => _webDriver.Quit();
 
-        private IWebElement GetTestAutomatizationVacancyElement() => _webDriver.FindElement(By.XPath("//a[@title=\"Testautomatisierer (m/w/d) Schwerpunkt-Continuous-Integration-Continuous-Testing\"]"));
-        private IWebElement GetJuniorSoftwareEngineerVacancyElement() => _webDriver.FindElement(By.XPath("//a[@title=\"Junior Softwareentwickler – Schwerpunkt Automatisierung (m/w/d)\"]"));
-        private IWebElement GetITWerkstudentVacancyElement() => _webDriver.FindElement(By.XPath("//a[@title=\"IT Werkstudentenstelle (m/w/d)\"]"));
+        public IEnumerable<IWebElement> GetAllVacanciesWebElements() => _webDriver.FindElements(By.XPath("//div[@class=\"vc_row wpb_row vc_inner vc_row-fluid vc_row-o-equal-height vc_row-o-content-middle vc_row-flex\"]")).SkipLast(2);
+        public IWebElement? GetVacancyContainsText(string text, StringComparison stringComparison) => GetAllVacanciesWebElements().FirstOrDefault(vacancy => vacancy.Text.Replace(" ", "").Contains(text, stringComparison));
+        public string GetVacancyLink(IWebElement vacancy) => vacancy.FindElement(By.TagName("a")).GetAttribute("href");
 
-        public string GetTestAutomatizationVacancyLink() => GetTestAutomatizationVacancyElement().GetAttribute("href");
-        public string GetJuniorSoftwareEngineerVacancyLink() => GetJuniorSoftwareEngineerVacancyElement().GetAttribute("href");
-        public string GetITWerkstudentVacancyLink() => GetITWerkstudentVacancyElement().GetAttribute("href");
-
-        public readonly string TestAutomatizationPageTitle = "Testautomatisierer (m/w/d) Schwerpunkt-Continuous-Integration-Continuous-Testing - Avsar Test Engineering GmbH";
-        public readonly string JuniorSoftwareEngineerPageTitle = "Testautomatisierer - Avsar Test Engineering GmbH";
-        public readonly string ITWerkstudentPageTitle = "IT Werkstudentenstelle - Avsar Test Engineering GmbH";
-
+        public string JobPageHeadingIgnoringCaseAndSpaces = "Warum Avsar Test Engineering?".Replace(" ", "").ToLowerInvariant();
+        public IWebElement GetJobPageHeading() => _webDriver.FindElement(By.XPath("//div[contains(@id, \"ultimate-heading-\")]"));
         public void OpenAvsarCareerPage()
         {
             //Arrange

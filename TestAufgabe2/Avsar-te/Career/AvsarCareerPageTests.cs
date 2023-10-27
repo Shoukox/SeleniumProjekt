@@ -24,45 +24,66 @@ namespace TestAufgabe2.Tests.Avsar_te
         [Test]
         public void ChooseTestAutomatizationVacancy()
         {
-            _avsarCareerPageObject.OpenAvsarCareerPage();
+            //Arrange
+            string vacancyPartTextIgnoringCaseAndSpaces = "testautomatisierer";
 
             //Act
-            string vacancyLink = _avsarCareerPageObject.GetTestAutomatizationVacancyLink();
+            _avsarCareerPageObject.OpenAvsarCareerPage();
+
+            IWebElement? vacancy = _avsarCareerPageObject.GetVacancyContainsText(vacancyPartTextIgnoringCaseAndSpaces, StringComparison.InvariantCultureIgnoreCase);
+            if (vacancy is null)
+                Assert.Fail("There is no Test Automatization vacancy");
+
+            string vacancyLink = _avsarCareerPageObject.GetVacancyLink(vacancy!);
             _avsarCareerPageObject.OpenJobPage(vacancyLink);
 
             //Assert
-            string expectedTitle = _avsarCareerPageObject.TestAutomatizationPageTitle;
-            Assert.That(_avsarCareerPageObject.GetCurrentTitle(), Is.EqualTo(expectedTitle));
+            string actualJobPageHeadingIgnoringCaseAndSpaces = _avsarCareerPageObject.GetJobPageHeading().Text.Replace(" ", "").ToLowerInvariant();
+            Assert.That(_avsarCareerPageObject.JobPageHeadingIgnoringCaseAndSpaces, Is.EqualTo(actualJobPageHeadingIgnoringCaseAndSpaces));
         }
 
         [Order(1)]
         [Test]
         public void ChooseJuniorSoftwareEngineerVacancy()
         {
-            _avsarCareerPageObject.OpenAvsarCareerPage();
+            //Arrange
+            string vacancyPartTextIgnoringCaseAndSpaces = "juniorsoftware";
 
             //Act
-            string vacancyLink = _avsarCareerPageObject.GetJuniorSoftwareEngineerVacancyLink();
+            _avsarCareerPageObject.OpenAvsarCareerPage();
+
+            IWebElement? vacancy = _avsarCareerPageObject.GetVacancyContainsText(vacancyPartTextIgnoringCaseAndSpaces, StringComparison.InvariantCultureIgnoreCase);
+            if (vacancy is null)
+                Assert.Fail("There is no Junior Software Engineer vacancy");
+
+            string vacancyLink = _avsarCareerPageObject.GetVacancyLink(vacancy!);
             _avsarCareerPageObject.OpenJobPage(vacancyLink);
 
             //Assert
-            string expectedTitle = _avsarCareerPageObject.JuniorSoftwareEngineerPageTitle;
-            Assert.That(_avsarCareerPageObject.GetCurrentTitle(), Is.EqualTo(expectedTitle));
+            string actualJobPageHeadingIgnoringCaseAndSpaces = _avsarCareerPageObject.GetJobPageHeading().Text.Replace(" ", "").ToLowerInvariant();
+            Assert.That(_avsarCareerPageObject.JobPageHeadingIgnoringCaseAndSpaces, Is.EqualTo(actualJobPageHeadingIgnoringCaseAndSpaces));
         }
 
         [Order(2)]
         [Test]
         public void ChooseITWerkstudentVacancy()
         {
-            _avsarCareerPageObject.OpenAvsarCareerPage();
+            //Arrange
+            string vacancyPartTextIgnoringCaseAndSpaces = "itwerkstudent";
 
             //Act
-            string vacancyLink = _avsarCareerPageObject.GetITWerkstudentVacancyLink();
+            _avsarCareerPageObject.OpenAvsarCareerPage();
+
+            IWebElement? vacancy = _avsarCareerPageObject.GetVacancyContainsText(vacancyPartTextIgnoringCaseAndSpaces, StringComparison.InvariantCultureIgnoreCase);
+            if (vacancy is null)
+                Assert.Fail("There is no IT Werkstudent vacancy");
+
+            string vacancyLink = _avsarCareerPageObject.GetVacancyLink(vacancy!);
             _avsarCareerPageObject.OpenJobPage(vacancyLink);
 
             //Assert
-            string expectedTitle = _avsarCareerPageObject.ITWerkstudentPageTitle;
-            Assert.That(_avsarCareerPageObject.GetCurrentTitle(), Is.EqualTo(expectedTitle));
+            string actualJobPageHeadingIgnoringCaseAndSpaces = _avsarCareerPageObject.GetJobPageHeading().Text.Replace(" ", "").ToLowerInvariant();
+            Assert.That(_avsarCareerPageObject.JobPageHeadingIgnoringCaseAndSpaces, Is.EqualTo(actualJobPageHeadingIgnoringCaseAndSpaces));
         }
 
         [OneTimeTearDown]
